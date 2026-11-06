@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cikini Raya 77 — Sebuah alamat, banyak kemungkinan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Konsep: lembar data survei properti. Garis tipis, label mono, angka besar serif, aksen kuningan. Satu pita hijau tua untuk formulir. */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --fg:#13231D; --muted:#56635C; --rule:#CBD1CB;
+  --accent:#8F6524; --accent-soft:#EFE6D4;
+  --band:#12251F; --band-fg:#EEF1EC; --band-muted:#A9B7AF; --band-accent:#D6AB62; --band-rule:#2F4640; --band-field:rgba(255,255,255,.07);
+  --f-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --f-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark) and (max-width:0px){
+  :root:not([data-theme="light"]){
+    --bg:#0D1613; --surface:#14211C; --fg:#E7ECE6; --muted:#98A59D; --rule:#27372F;
+    --accent:#D6AB62; --accent-soft:#2A2519;
+    --band:#17302A; --band-rule:#2F4A43;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1613; --surface:#14211C; --fg:#E7ECE6; --muted:#98A59D; --rule:#27372F;
+  --accent:#D6AB62; --accent-soft:#2A2519;
+  --band:#17302A; --band-rule:#2F4A43;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;line-height:1.05;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{width:100%;max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.label{font:500 12px/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.label.acc{color:var(--accent)}
+section{padding-block:clamp(56px,8vw,104px)}
+
+/* Bar atas */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;border-bottom:1px solid var(--rule)}
+.brand{font:500 13px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.brand b{color:var(--accent);font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;font:600 15px/1 var(--f-body);letter-spacing:.01em;text-decoration:none;border:1px solid var(--fg);background:var(--fg);color:var(--bg);border-radius:2px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--fg)}
+.btn.ghost:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.top .btn{min-height:40px;padding:0 16px;font-size:14px}
+
+/* Hero */
+.hero{padding-block:clamp(32px,5vw,64px) 0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:32px}
+.hero h1{font-size:clamp(44px,7.2vw,96px);margin-top:18px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .lede{max-width:34em;margin-top:22px;font-size:clamp(17px,1.6vw,20px);color:var(--muted)}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;margin-top:30px;padding-top:22px;border-top:1px solid var(--rule)}
+.price .num{font:400 clamp(40px,5vw,60px)/1 var(--f-display)}
+.price .num small{font-size:.5em;margin-left:6px;color:var(--muted)}
+.price .note{font:400 13px/1.5 var(--f-mono);color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero figure{margin:0}
+.hero figure img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.cap{margin-top:10px;font:400 12px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.04em}
+@media(min-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:end}
+}
+
+/* Lembar data */
+.sheet{margin-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--fg);border-bottom:1px solid var(--rule)}
+.sheet div{padding:20px 16px 22px 0;border-bottom:1px solid var(--rule)}
+.sheet div:nth-last-child(-n+1){border-bottom:0}
+.sheet dt{font:500 11px/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sheet dd{margin:8px 0 0;font:400 clamp(28px,3.4vw,42px)/1.05 var(--f-display)}
+.sheet dd small{font:400 .45em/1 var(--f-body);color:var(--muted);margin-left:4px}
+.sheet{margin-bottom:0}
+@media(min-width:900px){
+  .sheet{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .sheet div{border-bottom:0;border-right:1px solid var(--rule);padding:22px 20px 26px 20px}
+  .sheet div:first-child{padding-left:0}
+  .sheet div:last-child{border-right:0}
+}
+
+/* Heading blok */
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.split h2{font-size:clamp(34px,4.6vw,60px);margin-top:14px}
+.split .body p+p{margin-top:16px}
+.body p{color:var(--muted);max-width:38em}
+.body p strong{color:var(--fg);font-weight:600}
+@media(min-width:900px){.split{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:72px}}
+
+/* Lokasi */
+.around{margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+.around li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:16px}
+.around li span:last-child{font:400 12px/1.6 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right}
+.maplink{display:inline-flex;margin-top:22px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px;color:var(--fg)}
+.maplink:hover{color:var(--accent)}
+
+/* Potensi */
+.uses{margin:clamp(32px,5vw,56px) 0 0;padding:0;list-style:none;border-top:1px solid var(--fg)}
+.uses li{display:grid;grid-template-columns:minmax(0,1fr);gap:6px 32px;padding:24px 0;border-bottom:1px solid var(--rule)}
+.uses h3{font-size:clamp(26px,3vw,36px)}
+.uses p{color:var(--muted);max-width:40em}
+.uses .tag{font:500 11px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+@media(min-width:900px){.uses li{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:baseline}.uses .tag{grid-column:1}}
+.fine{margin-top:18px;font:400 12px/1.6 var(--f-mono);color:var(--muted);max-width:60em}
+
+/* Galeri */
+.gal-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 32px;margin-bottom:clamp(24px,4vw,40px)}
+.gal-head h2{font-size:clamp(34px,4.6vw,60px);margin-top:14px}
+.gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gal figure{margin:0;min-width:0}
+.gal button{display:block;width:100%;padding:0;border:0;background:var(--rule);cursor:zoom-in;overflow:hidden;border-radius:2px}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s ease}
+.gal button:hover img{transform:scale(1.03)}
+.gal .wide{grid-column:1 / -1}
+@media(min-width:900px){
+  .gal{grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+  .gal .g1{grid-column:span 7}
+  .gal .g2{grid-column:span 5}
+  .gal .g3,.gal .g4,.gal .g5,.gal .g6,.gal .g7,.gal .g8{grid-column:span 4}
+  .gal .g1 img{aspect-ratio:7/5}
+  .gal .g2 img{aspect-ratio:1/1}
+}
+.gal-more{margin-top:clamp(28px,4vw,44px);padding-top:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.gal-more p{font:400 13px/1.5 var(--f-mono);color:var(--muted)}
+dialog{padding:0;border:0;background:transparent;max-width:min(1200px,94vw);max-height:92vh;overflow:visible}
+dialog::backdrop{background:rgba(6,12,10,.9)}
+dialog img{max-height:84vh;width:auto;max-width:100%;margin-inline:auto}
+dialog p{margin-top:10px;text-align:center;font:400 12px/1.4 var(--f-mono);color:#C9D3CD;letter-spacing:.05em}
+dialog .x{position:absolute;right:0;top:-44px;min-height:40px;padding:0 14px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);font:500 12px var(--f-mono);letter-spacing:.12em;cursor:pointer;border-radius:2px}
+
+/* Transaksi */
+.terms{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin-top:clamp(28px,4vw,48px);border-top:1px solid var(--fg)}
+.terms div{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--rule)}
+.terms dt{font:500 12px/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.terms dd{margin:0;font-weight:500}
+.terms dd span{display:block;font-weight:400;color:var(--muted);font-size:15px;margin-top:2px}
+
+/* Formulir */
+.band{background:var(--band);color:var(--band-fg)}
+.band .label{color:var(--band-muted)}
+.band .label.acc{color:var(--band-accent)}
+.band .body p{color:var(--band-muted)}
+.band .body p strong{color:var(--band-fg)}
+.band h2{font-size:clamp(34px,4.6vw,60px);margin-top:14px}
+.form-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+@media(min-width:960px){.form-grid{grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:80px}}
+.steps{margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--band-rule)}
+.steps li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--band-rule);color:var(--band-muted);font-size:16px}
+.steps li b{font:500 12px/1.9 var(--f-mono);color:var(--band-accent);letter-spacing:.08em;flex:none}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.f{display:flex;flex-direction:column;gap:7px;min-width:0}
+.f.full{grid-column:1 / -1}
+@media(max-width:640px){form{grid-template-columns:minmax(0,1fr)}}
+label,.legend{font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--band-muted)}
+label i{font-style:normal;color:var(--band-accent)}
+input,select,textarea{width:100%;min-height:50px;padding:12px 14px;font:400 16px/1.4 var(--f-body);color:var(--band-fg);background:var(--band-field);border:1px solid var(--band-rule);border-radius:2px;color-scheme:dark}
+textarea{min-height:104px;resize:vertical}
+select option{color:#13231D;background:#fff}
+input::placeholder,textarea::placeholder{color:#7F8F87}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--band-accent);box-shadow:0 0 0 1px var(--band-accent)}
+input:user-invalid,select:user-invalid{border-color:#E59A8A}
+.radios{display:flex;flex-wrap:wrap;gap:10px}
+.radios label{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 16px;margin:0;text-transform:none;letter-spacing:0;font:400 15px var(--f-body);color:var(--band-fg);border:1px solid var(--band-rule);background:var(--band-field);border-radius:2px;cursor:pointer}
+.radios input{width:auto;min-height:0;accent-color:#D6AB62}
+.radios label:has(input:checked){border-color:var(--band-accent)}
+.check{display:flex;gap:12px;align-items:flex-start;text-transform:none;letter-spacing:0;font:400 14px/1.5 var(--f-body);color:var(--band-muted)}
+.check input{width:20px;min-height:0;margin-top:2px;accent-color:#D6AB62;flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn.gold{background:var(--band-accent);border-color:var(--band-accent);color:#13231D;min-height:54px;font-size:16px;width:100%}
+.btn.gold:hover{background:#fff;border-color:#fff;color:#13231D}
+.btn[disabled]{opacity:.6;cursor:progress}
+.msg{grid-column:1 / -1;padding:22px;border:1px solid var(--band-accent);border-radius:2px}
+.msg h3{font-size:30px}
+.msg p{margin-top:8px;color:var(--band-muted)}
+.msg.err{border-color:#E59A8A}
+.smallprint{grid-column:1 / -1;font-size:13px;color:var(--band-muted)}
+
+/* FAQ */
+.faq{margin-top:clamp(28px,4vw,48px);border-top:1px solid var(--fg)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;justify-content:space-between;gap:24px;padding:22px 0;cursor:pointer;list-style:none;font:400 clamp(22px,2.4vw,28px)/1.2 var(--f-display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 22px/1 var(--f-mono);color:var(--accent);flex:none}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 24px;color:var(--muted);max-width:44em}
+
+footer{padding-block:36px 56px;border-top:1px solid var(--rule)}
+footer p{font:400 12px/1.7 var(--f-mono);color:var(--muted);max-width:70em}
+footer p+p{margin-top:8px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gal img,.btn{transition:none}}
+
+/* Premium editorial redesign */
+:root{--bg:#f3f0e8;--surface:#faf9f4;--fg:#172a25;--muted:#66716a;--rule:#d4d6ca;--accent:#9b805b;--band:#172a25;--band-accent:#d1bc98;--f-display:"Instrument Serif",Georgia,serif;--f-body:"Hanken Grotesk",sans-serif;--f-mono:"Hanken Grotesk",sans-serif}body{font-size:16px}.wrap{max-width:1440px;padding-left:48px;padding-right:48px}.top{height:88px;padding-block:0;border:0}.brand{font-family:var(--f-display);font-size:26px;letter-spacing:-.02em;text-transform:none}.nav{display:flex;align-items:center;gap:38px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:600}.nav a{text-decoration:none}.top .btn{padding:0 18px}.hero{padding:0}.hero-photo{height:calc(100svh - 88px);min-height:650px;max-height:900px;position:relative;color:#fff;background:#27372f}.hero-photo>img{position:absolute;inset:0;height:100%;width:100%;object-fit:cover;object-position:center 56%;filter:brightness(.65)}.hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,25,20,.72),rgba(9,25,20,.1) 80%),linear-gradient(0deg,rgba(9,25,20,.35),transparent 50%)}.hero-content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding-bottom:76px}.hero .label{color:#e0c7a0}.hero h1{font-size:clamp(68px,8.4vw,132px);letter-spacing:-.035em;margin:22px 0;line-height:.93}.hero h1 em{color:#e1ceb1}.hero .lede{color:#eee;max-width:32em;margin:0;font-size:17px}.hero-btn{margin-top:35px;background:#efe9db;border-color:#efe9db;color:#172a25;gap:45px;text-transform:uppercase;letter-spacing:.1em;font-size:11px}.hero-address{position:absolute;right:48px;bottom:76px;font:500 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase}.facts{background:#172a25;color:#f4f2e9}.facts-grid{display:grid;grid-template-columns:1.2fr repeat(4,1fr);padding-top:30px;padding-bottom:30px}.facts-grid>div{padding:0 26px;border-left:1px solid #52615a}.facts-grid>div:first-child{padding-left:0;border:0}.facts-grid span{display:block;color:#b4c0b7;font-size:10px;letter-spacing:.15em;text-transform:uppercase}.facts-grid strong{display:block;font:400 32px var(--f-display);margin-top:5px}.facts-grid small{font:14px var(--f-body)}section{padding-block:clamp(80px,9vw,130px)}.intro .split h2,.building-head h2,.split h2,.gal-head h2,.band h2{font-size:clamp(48px,5.5vw,80px);letter-spacing:-.025em}.intro-copy{padding-top:38px;font-size:19px}.buildings{padding-top:0}.building-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:45px}.building-head h2{margin-top:14px}.building-head>p{max-width:350px;color:var(--muted)}.building-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.building-grid article{border-top:1px solid var(--fg);padding-top:15px}.building-label{display:flex;justify-content:space-between;color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:15px}.building-grid img,.building-placeholder{width:100%;height:310px;object-fit:cover}.building-placeholder{background:#d9dbd1;display:flex;align-items:end;padding:25px;font:36px/1 var(--f-display);color:#758078}.building-grid h3{font-size:33px;margin-top:22px}.building-grid article>p:last-child{margin-top:12px;color:var(--muted);max-width:350px}.building-grid+.fine{margin-top:20px}#lokasi{background:#dfe1d8}#lokasi .split{align-items:start}#potensi{padding-top:100px!important}.uses li{padding:30px 0}.gal img{border-radius:0}.band{background:#172a25}.band .body p{font-size:18px}.form-grid{gap:10%}.btn.gold{border-radius:0}.top .btn,.btn{border-radius:0}.faq summary{font-size:30px}footer{background:#10201b;color:#bcc6be;border:0}footer p{color:#bcc6be}
+@media(max-width:800px){.wrap{padding-left:20px;padding-right:20px}.top{height:72px}.brand{font-size:22px}.nav>a:not(.btn){display:none}.nav{gap:0}.hero-photo{height:75svh;min-height:560px}.hero-content{padding-bottom:45px}.hero h1{font-size:clamp(58px,12vw,90px)}.hero-address{display:none}.facts-grid{grid-template-columns:repeat(2,1fr);gap:25px 0}.facts-grid>div,.facts-grid>div:first-child{padding:0 15px;border-left:1px solid #52615a}.facts-grid>div:nth-child(odd){padding-left:0;border:0}.facts-grid strong{font-size:27px}.intro-copy{padding-top:0}.building-head{display:block}.building-head>p{margin-top:20px}.building-grid{grid-template-columns:1fr;gap:38px}.building-grid img,.building-placeholder{height:290px}.building-grid h3{font-size:31px}#potensi{padding-top:80px!important}}
+</style>
+
+<header class="wrap top">
+  <a class="brand" href="#atas">Cikini Raya <b>77</b></a>
+  <nav class="nav"><a href="#properti">Properti</a><a href="#lokasi">Lokasi</a><a href="#galeri">Galeri</a><a class="btn ghost" href="#formulir">Minta informasi ↗</a></nav>
+</header>
+
+<main id="atas">
+<section class="hero" id="properti"><div class="hero-photo"><img src="img/1.jpg" alt="Tampak depan properti di Jalan Cikini Raya 77" fetchpriority="high"><div class="wrap hero-content"><p class="label acc">Properti komersial untuk dijual · Jakarta Pusat</p><h1>Sekitar Rp87,1 juta/m².<br><em>Di jantung Cikini.</em></h1><p class="lede">Tanah 861 m² dengan tiga bangunan di jalan utama Cikini Raya. Ditawarkan Rp75 miliar untuk sebuah alamat dengan banyak kemungkinan.</p><a class="btn hero-btn" href="#bangunan">Jelajahi properti <span>↘</span></a><p class="hero-address">Jl. Cikini Raya No. 77 &nbsp; / &nbsp; Menteng</p></div></div><div class="facts"><div class="wrap facts-grid"><div><span>Harga penawaran</span><strong>Rp75 <small>miliar</small></strong></div><div><span>Luas tanah</span><strong>861 <small>m²</small></strong></div><div><span>Luas bangunan</span><strong>721 <small>m²</small></strong></div><div><span>Bangunan</span><strong>03</strong></div><div><span>Status tanah</span><strong>Hak Milik</strong></div></div></div></section><section class="intro"><div class="wrap split"><div><p class="label acc">01 / The property</p><h2>Berada di tempat<br>yang berarti.</h2></div><div class="body intro-copy"><p>Di tengah karakter khas Menteng dan dinamika Cikini, hadir sebuah properti dengan ruang untuk berkembang dan identitas untuk dibangun.</p><p>Dengan tiga bangunan yang sebelumnya digunakan sebagai kafe, kantor, dan roastery, properti ini membuka berbagai kemungkinan untuk usaha maupun investasi Anda.</p><a class="maplink" href="#bangunan">Kenali ruangnya ↗</a></div></div></section><section id="bangunan" class="buildings"><div class="wrap"><div class="building-head"><div><p class="label acc">02 / Three spaces, one address</p><h2>Tiga bangunan.<br>Satu visi baru.</h2></div><p>Setiap ruang memiliki ceritanya sendiri. Kini saatnya membayangkan apa yang bisa hadir berikutnya.</p></div><div class="building-grid"><article><p class="building-label">01 / Hospitality <span>Ex café</span></p><img src="img/5.jpg" alt="Area makan terbuka bekas kafe" loading="lazy"><h3>Ruang untuk berkumpul.</h3><p>Bekas kafe dengan area makan terbuka beratap, menghadirkan suasana yang hangat dan berkarakter.</p></article><article><p class="building-label">02 / Business <span>Ex kantor</span></p><img src="img/2.jpg" alt="Ruang rapat di area bekas kantor" loading="lazy"><h3>Ruang untuk bertumbuh.</h3><p>Bekas kantor dengan ruang rapat dan area kerja untuk berbagai kebutuhan bisnis.</p></article><article><p class="building-label">03 / Possibility <span>Ex roastery</span></p><img src="img/6.jpg" alt="Bangunan bekas roastery dengan teras luar" loading="lazy"><h3>Ruang untuk berkarya.</h3><p>Bangunan bekas roastery menjadi bagian ketiga dari properti ini, siap untuk dibayangkan kembali.</p></article></div></div></section>
+<section id="lokasi">
+  <div class="wrap split">
+    <div>
+      <p class="label acc">03 / The location</p>
+      <h2>Di pusat cerita Cikini.</h2>
+    </div>
+    <div class="body">
+      <p>Jl. Cikini Raya adalah salah satu koridor tersibuk di Menteng. Lalu lintas kendaraan dan pejalan kaki berjalan dari pagi sampai malam, dan kawasan sekitarnya dipenuhi perkantoran, rumah sakit, kampus, serta pusat kuliner dan budaya.</p>
+      <p><strong>Tanah seluas 861 m² di ruas seperti ini jarang tersedia.</strong> Lahan yang cukup besar untuk parkir di dalam persil, lengkap dengan gerbang dan pos jaga, berarti tamu dan karyawan tidak perlu mencari tempat di jalan.</p>
+      <ul class="around">
+        <li><span>Stasiun Cikini</span><span>Commuter Line</span></li>
+        <li><span>Stasiun Gondangdia</span><span>KRL</span></li>
+        <li><span>Taman Ismail Marzuki</span><span>Pusat seni</span></li>
+        <li><span>Perkantoran dan hotel</span><span>Sepanjang Cikini Raya</span></li>
+        <li><span>Kawasan Menteng</span><span>Kantor, kedutaan, kuliner</span></li>
+      </ul>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Jl.+Cikini+Raya+No.+77+Menteng+Jakarta+Pusat" target="_blank" rel="noopener">Buka lokasi di Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<section id="potensi" style="padding-top:0">
+  <div class="wrap">
+    <p class="label acc">Potensi penggunaan</p>
+    <h2 style="font-size:clamp(34px,4.6vw,60px);margin-top:14px;max-width:16em">Satu persil, beberapa arah usaha.</h2>
+    <ul class="uses">
+      <li>
+        <div><p class="tag">Perkantoran</p><h3>Kantor pusat atau flagship office</h3></div>
+        <p>Ruang rapat, ruang tamu, dan area kerja sudah tersedia. Alamat Menteng dengan parkir sendiri memberi kesan pertama yang kuat bagi klien dan mitra.</p>
+      </li>
+      <li>
+        <div><p class="tag">Makanan dan minuman</p><h3>Restoran atau kafe premium</h3></div>
+        <p>Bangunan ini sebelumnya beroperasi sebagai kafe. Area makan terbuka beratap dengan dinding bata ekspos sudah menjadi bagian dari bangunan.</p>
+      </li>
+      <li>
+        <div><p class="tag">Layanan khusus</p><h3>Klinik, kantor cabang, atau pusat layanan</h3></div>
+        <p>Lokasi di dekat rumah sakit dan kawasan perkantoran memudahkan pasien dan nasabah menjangkau tempat ini dari berbagai arah.</p>
+      </li>
+      <li>
+        <div><p class="tag">Ritel</p><h3>Showroom atau gerai merek</h3></div>
+        <p>Lokasinya di koridor yang ramai, dengan halaman depan yang cukup luas untuk menampilkan merek dan menerima kunjungan.</p>
+      </li>
+    </ul>
+    <p class="fine">Kesesuaian penggunaan bergantung pada ketentuan zonasi dan perizinan yang berlaku. Calon pembeli disarankan memverifikasinya pada tahap pemeriksaan dokumen.</p>
+  </div>
+</section>
+
+<section id="galeri" style="padding-top:0">
+  <div class="wrap">
+    <div class="gal-head">
+      <div>
+        <p class="label acc">04 / A closer look</p>
+        <h2>Lihat lebih dekat.</h2>
+      </div>
+      <p class="label">Ketuk foto untuk memperbesar</p>
+    </div>
+    <div class="gal">
+      <figure class="g1"><button type="button" data-cap="Area makan terbuka beratap, bekas kafe"><img src="img/5.jpg" alt="Area makan terbuka beratap dengan meja kayu dan dinding bata ekspos" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Area makan terbuka, bekas kafe</figcaption></figure>
+      <figure class="g2"><button type="button" data-cap="Tampak depan bangunan"><img src="img/1.jpg" alt="Tampak depan bangunan berwarna putih dengan atap genteng dan tanaman" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Tampak depan</figcaption></figure>
+      <figure class="g3"><button type="button" data-cap="Ruang rapat"><img src="img/2.jpg" alt="Ruang rapat dengan meja kayu panjang dan kursi kulit" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Ruang rapat</figcaption></figure>
+      <figure class="g4"><button type="button" data-cap="Ruang tamu dan area kerja"><img src="img/3.jpg" alt="Ruang tamu dengan sofa dan partisi kaca menuju ruang kerja" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Ruang tamu dan area kerja</figcaption></figure>
+      <figure class="g5"><button type="button" data-cap="Halaman depan dan area parkir"><img src="img/4.jpg" alt="Halaman depan dan area parkir berpaving dengan gerbang dan pos jaga" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Halaman dan area parkir</figcaption></figure>
+      <figure class="g6"><button type="button" data-cap="Bangunan bekas roastery dan teras samping"><img src="img/6.jpg" alt="Bangunan bekas roastery dengan area duduk teras berpayung" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Bangunan bekas roastery</figcaption></figure>
+      <figure class="g7"><button type="button" data-cap="Area bar kopi dan konter layanan"><img src="img/7.jpg" alt="Area bar kopi di dalam bangunan kafe" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Area bar dan konter</figcaption></figure>
+      <figure class="g8"><button type="button" data-cap="Ruang dalam dengan dinding bata ekspos dan pantry"><img src="img/8.jpg" alt="Ruang dalam dengan dinding bata ekspos, meja pantry, dan area duduk" width="1800" height="1350" loading="lazy"></button><figcaption class="cap">Ruang dalam dan lounge</figcaption></figure>
+    </div>
+    <div class="gal-more">
+      <p>Dokumentasi lengkap mencakup foto seluruh ruangan dan video keliling properti.</p>
+      <a class="btn ghost" href="https://drive.google.com/drive/folders/197pI8RH5KGoUwQ8QEz7yDynto7ua9jFv?usp=sharing" target="_blank" rel="noopener">Lihat selengkapnya (Foto &amp; Video) ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="transaksi" style="padding-top:0">
+  <div class="wrap split">
+    <div>
+      <p class="label acc">Legalitas dan transaksi</p>
+      <h2>Ketentuan yang jelas sejak awal.</h2>
+    </div>
+    <div class="body">
+      <p>Properti dijual, bukan disewakan. Penjual terbuka untuk berdiskusi dengan pembeli korporasi maupun perorangan, termasuk yang menggunakan pembiayaan bank.</p>
+      <dl class="terms">
+        <div><dt>Status tanah</dt><dd>Hak Milik<span>Bebas sengketa</span></dd></div>
+        <div><dt>Peruntukan</dt><dd>Komersial campuran</dd></div>
+        <div><dt>Kondisi</dt><dd>Bangunan sudah jadi<span>Bekas kafe, kantor, dan roastery</span></dd></div>
+        <div><dt>Harga</dt><dd>Rp75.000.000.000<span>Dapat didiskusikan</span></dd></div>
+        <div><dt>Pembayaran</dt><dd>Tunai atau pembiayaan bank<span>Penjual menerima pembayaran tunai</span></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="formulir" class="band">
+  <div class="wrap form-grid">
+    <div>
+      <p class="label acc">05 / Private enquiries</p>
+      <h2>Mari bicarakan kemungkinannya.</h2>
+      <div class="body" style="margin-top:20px">
+        <p>Isi formulir singkat ini. Kami menghubungi calon pembeli yang serius untuk mengirim informasi lengkap dan mengatur kunjungan ke lokasi.</p>
+      </div>
+      <ol class="steps">
+        <li><b>1</b><span>Anda mengisi formulir.</span></li>
+        <li><b>2</b><span>Kami menghubungi Anda untuk memastikan kebutuhan.</span></li>
+        <li><b>3</b><span>Anda menerima informasi dan jadwal survei lokasi.</span></li>
+      </ol>
+    </div>
+
+    <form id="lead" novalidate>
+      <div class="f"><label for="nama">Nama lengkap <i>*</i></label><input id="nama" name="nama" type="text" autocomplete="name" required></div>
+      <div class="f"><label for="wa">Nomor WhatsApp <i>*</i></label><input id="wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" pattern="^(\+62|62|0)8[0-9]{7,12}$" required></div>
+      <div class="f full"><label for="pesan">Pesan atau rencana kunjungan</label><textarea id="pesan" name="pesan" placeholder="Opsional"></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="situs">Jangan diisi</label><input id="situs" name="situs" type="text" tabindex="-1" autocomplete="off"></div>
+      <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content"><input type="hidden" name="halaman">
+      <label class="check full f" for="setuju" style="grid-column:1 / -1;flex-direction:row"><input id="setuju" name="setuju" type="checkbox" required><span>Saya bersedia dihubungi terkait properti ini.</span></label>
+      <div class="f full"><button class="btn gold" id="kirim" type="submit">Kirim permintaan</button></div>
+      <p class="smallprint">Data Anda hanya dipakai untuk menghubungi Anda tentang properti ini.</p>
+      <div id="hasil" class="msg" hidden role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="label acc">Pertanyaan umum</p>
+    <h2 style="font-size:clamp(34px,4.6vw,60px);margin-top:14px">Yang biasanya ditanyakan.</h2>
+    <div class="faq">
+      <details><summary>Apakah harganya masih bisa dinegosiasikan?</summary><p>Harga Rp75 miliar dapat didiskusikan. Pembahasan harga dilakukan setelah survei lokasi dan pemeriksaan dokumen.</p></details>
+      <details><summary>Apakah pembayaran bisa memakai kredit bank?</summary><p>Bisa. Penjual menerima pembayaran tunai, dan pembeli korporasi dapat menggunakan pembiayaan bank atau skema kombinasi.</p></details>
+      <details><summary>Dokumen apa yang bisa saya periksa?</summary><p>Sertifikat Hak Milik dan dokumen pendukung dapat diperlihatkan kepada calon pembeli yang serius setelah formulir diterima dan kebutuhan dikonfirmasi.</p></details>
+      <details><summary>Apakah properti ini disewakan?</summary><p>Tidak. Properti ini hanya dijual.</p></details>
+      <details><summary>Kapan saya bisa melihat lokasi?</summary><p>Kunjungan diatur setelah kami menghubungi Anda. Tulis waktu yang Anda inginkan pada kolom catatan di formulir.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Jl. Cikini Raya No. 77, Menteng, Jakarta Pusat.</p>
+    <p>Informasi pada halaman ini dapat berubah dan bukan penawaran yang mengikat. Luas dan data teknis diverifikasi melalui dokumen resmi saat pemeriksaan.</p>
+  </div>
+</footer>
+
+<dialog id="lb" aria-label="Foto diperbesar">
+  <button class="x" type="button" id="lbx">TUTUP ✕</button>
+  <img id="lbimg" alt="">
+  <p id="lbcap"></p>
+</dialog>
+
+<script>
+/* ===== Pengaturan ===== */
+// Endpoint penerima formulir. Mengarah ke backend /api/leads yang bisa dicek di halaman /admin.
+var FORM_ENDPOINT = "/api/leads";
+
+(function(){
+  var form = document.getElementById('lead');
+  var out = document.getElementById('hasil');
+  var btn = document.getElementById('kirim');
+
+  // Tangkap sumber iklan (UTM) agar tiap lead bisa dilacak ke kampanyenya.
+  try{
+    var q = new URLSearchParams(location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(k){
+      var el = form.elements[k]; if(el && q.get(k)) el.value = q.get(k);
+    });
+    form.elements['halaman'].value = location.href.split('#')[0];
+  }catch(e){}
+
+  function show(kind, title, text){
+    out.className = 'msg' + (kind === 'err' ? ' err' : '');
+    out.innerHTML = '<h3></h3><p></p>';
+    out.firstChild.textContent = title;
+    out.lastChild.textContent = text;
+    out.hidden = false;
+    out.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    out.hidden = true;
+    if(form.elements['situs'].value) return; // bot
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+    var data = {};
+    new FormData(form).forEach(function(v,k){ if(k !== 'situs') data[k] = v; });
+    data.waktu_kirim = new Date().toISOString();
+
+    function done(demo){
+      form.querySelectorAll('input,select,textarea,button').forEach(function(el){ el.disabled = true; });
+      show('ok', 'Terima kasih, ' + (data.nama || '').split(' ')[0] + '.',
+        demo ? 'Ini pratinjau: formulir belum tersambung ke penerima data, jadi tidak ada yang terkirim.'
+             : 'Permintaan Anda sudah kami terima. Kami akan menghubungi Anda secepatnya.');
+      try{ if(window.fbq) fbq('track','Lead'); }catch(e){}
+      try{ if(window.ttq) ttq.track('SubmitForm'); }catch(e){}
+      try{ if(window.gtag) gtag('event','generate_lead'); }catch(e){}
+    }
+
+    if(!FORM_ENDPOINT){ done(true); return; }
+
+    btn.disabled = true; btn.textContent = 'Mengirim...';
+    fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(data)})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); btn.disabled = false; done(false); })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = 'Kirim permintaan';
+        show('err','Permintaan belum terkirim.','Periksa koneksi internet Anda lalu coba kirim lagi.');
+      });
+  });
+
+  // Galeri
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg'), lbcap = document.getElementById('lbcap');
+  document.querySelectorAll('.gal button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var im = b.querySelector('img');
+      lbimg.src = im.src; lbimg.alt = im.alt; lbcap.textContent = b.getAttribute('data-cap') || '';
+      if(lb.showModal) lb.showModal(); else lb.setAttribute('open','');
+    });
+  });
+  document.getElementById('lbx').addEventListener('click', function(){ lb.close(); });
+  lb.addEventListener('click', function(e){ if(e.target === lb) lb.close(); });
+})();
+</script>
+
+</body>
+</html>

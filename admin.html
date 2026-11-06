@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Admin — Cikini Raya 77</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f3f0e8;
+  --surface: #faf9f4;
+  --fg: #172a25;
+  --muted: #66716a;
+  --rule: #d4d6ca;
+  --accent: #9b805b;
+  --band: #172a25;
+  --band-fg: #f4f2e9;
+  --band-accent: #d1bc98;
+  --danger: #b84434;
+  --f-display: "Instrument Serif", Georgia, serif;
+  --f-body: "Hanken Grotesk", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.55 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+a { color: inherit; }
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 48px);
+}
+
+/* Header */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 76px;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  font-family: var(--f-display);
+  font-size: 24px;
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.brand b { color: var(--accent); font-weight: 400; }
+.brand span {
+  font: 500 11px/1 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 4px 8px;
+  border: 1px solid var(--rule);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  font: 600 13px/1 var(--f-body);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+}
+.btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--rule); }
+.btn.ghost:hover { border-color: var(--fg); background: var(--surface); }
+.btn.danger { background: transparent; color: var(--danger); border-color: rgba(184,68,52,.35); }
+.btn.danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+/* Login Card */
+.login-wrap {
+  min-height: calc(100svh - 76px);
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+}
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  padding: 36px 32px;
+}
+.label {
+  font: 500 11px/1.3 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.login-card h1 { font-size: 40px; margin-top: 8px; }
+.login-card p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+.field {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font: 500 11px var(--f-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+input, select, textarea {
+  font: 400 14px/1.4 var(--f-body);
+  color: var(--fg);
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 10px 12px;
+  min-height: 42px;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--fg);
+}
+.err-text {
+  color: var(--danger);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+/* Dashboard */
+.dash { padding-block: 36px 72px; }
+.dash-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+.dash-head h1 { font-size: clamp(36px, 4vw, 54px); margin-top: 6px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Stats strip */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  margin-bottom: 28px;
+}
+.stats > div {
+  padding: 20px 22px;
+  border-right: 1px solid var(--rule);
+}
+.stats > div:last-child { border-right: 0; }
+.stats dt {
+  font: 500 11px var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stats dd {
+  margin: 6px 0 0;
+  font: 400 38px/1 var(--f-display);
+}
+@media (max-width: 720px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stats > div:nth-child(2) { border-right: 0; }
+  .stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.toolbar-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 1;
+}
+.search-input { min-width: 240px; flex: 1; max-width: 360px; }
+
+/* Leads Table / Cards */
+.table-wrap {
+  background: var(--surface);
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+th {
+  font: 500 11px var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+td {
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: 0; }
+tr:hover td { background: rgba(155, 128, 91, 0.04); }
+
+.lead-name { font-weight: 600; font-size: 16px; }
+.lead-time { font: 400 12px var(--f-mono); color: var(--muted); margin-top: 4px; }
+.wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 13px var(--f-mono);
+  color: #1c5e3c;
+  background: #e3f1e8;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #b8dec6;
+}
+.wa-link:hover { background: #1c5e3c; color: #fff; border-color: #1c5e3c; }
+
+.lead-msg {
+  max-width: 340px;
+  white-space: pre-wrap;
+  color: var(--fg);
+}
+.lead-msg:empty::before {
+  content: "— Tidak ada pesan tambahan —";
+  color: var(--muted);
+  font-style: italic;
+}
+
+.utm-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.utm-tag {
+  font: 400 11px var(--f-mono);
+  color: var(--muted);
+  background: var(--bg);
+  padding: 2px 6px;
+  border: 1px solid var(--rule);
+}
+
+.status-select {
+  font: 500 12px var(--f-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-height: 34px;
+  padding: 4px 10px;
+}
+.status-select[data-val="baru"] { border-color: var(--accent); background: #f9f3e8; color: #785a32; }
+.status-select[data-val="dihubungi"] { border-color: #6b8e78; background: #eaf3ed; color: #255437; }
+.status-select[data-val="survei"] { border-color: #4f759b; background: #ebf1f7; color: #24476b; }
+.status-select[data-val="arsip"] { border-color: var(--rule); background: var(--bg); color: var(--muted); }
+
+.note-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 210px;
+}
+.note-box textarea {
+  min-height: 58px;
+  font-size: 13px;
+  padding: 8px;
+  resize: vertical;
+}
+.save-indicator {
+  font: 400 11px var(--f-mono);
+  color: var(--muted);
+}
+
+.empty-state {
+  padding: 64px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state h3 {
+  font-size: 28px;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="/">Cikini Raya <b>77</b> <span>Admin Panel</span></a>
+  <div style="display:flex;gap:10px;align-items:center">
+    <a class="btn ghost" href="/" target="_blank">Lihat Halaman Utama ↗</a>
+    <button class="btn ghost" id="logoutBtn" hidden type="button">Keluar</button>
+  </div>
+</header>
+
+<!-- Login View -->
+<main id="loginView" class="login-wrap">
+  <form id="loginForm" class="login-card">
+    <p class="label">Private Access</p>
+    <h1>Masuk Admin</h1>
+    <p>Masukkan kata sandi untuk melihat daftar calon pembeli yang mengisi formulir Cikini Raya 77.</p>
+    <div class="field">
+      <label for="pw">Kata sandi admin</label>
+      <input id="pw" type="password" required autocomplete="current-password" placeholder="Masukkan password...">
+    </div>
+    <p id="loginErr" class="err-text" hidden></p>
+    <button class="btn" type="submit" style="width:100%;margin-top:20px;min-height:46px">Buka Data Formulir →</button>
+  </form>
+</main>
+
+<!-- Dashboard View -->
+<main id="dashView" class="wrap dash" hidden>
+  <div class="dash-head">
+    <div>
+      <p class="label">05 / Private Enquiries Database</p>
+      <h1>Daftar Permintaan Masuk.</h1>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="refreshBtn" type="button">↻ Muat Ulang</button>
+      <button class="btn" id="csvBtn" type="button">Unduh CSV (Excel) ↓</button>
+    </div>
+  </div>
+
+  <dl class="stats">
+    <div><dt>Total Permintaan</dt><dd id="stTotal">0</dd></div>
+    <div><dt>Belum Dihubungi (Baru)</dt><dd id="stBaru">0</dd></div>
+    <div><dt>Sudah Dihubungi</dt><dd id="stDihubungi">0</dd></div>
+    <div><dt>Jadwal Survei</dt><dd id="stSurvei">0</dd></div>
+  </dl>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <input type="search" id="searchInp" class="search-input" placeholder="Cari nama, nomor WA, atau isi pesan...">
+      <select id="filterStatus">
+        <option value="">Semua Status</option>
+        <option value="baru">Baru</option>
+        <option value="dihubungi">Sudah Dihubungi</option>
+        <option value="survei">Jadwal Survei</option>
+        <option value="arsip">Arsip</option>
+      </select>
+    </div>
+    <p id="countInfo" style="font:400 12px var(--f-mono);color:var(--muted)"></p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Waktu &amp; Nama</th>
+          <th>WhatsApp</th>
+          <th>Pesan / Rencana Kunjungan</th>
+          <th>Status Tindak Lanjut</th>
+          <th>Catatan Internal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="leadsBody"></tbody>
+    </table>
+    <div id="emptyState" class="empty-state" hidden>
+      <h3>Belum ada permintaan yang masuk.</h3>
+      <p>Saat pengunjung mengisi formulir di halaman utama, datanya akan langsung muncul di sini.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  const TOKEN_KEY = 'cikini77_admin_token';
+  const loginView = document.getElementById('loginView');
+  const dashView = document.getElementById('dashView');
+  const loginForm = document.getElementById('loginForm');
+  const loginErr = document.getElementById('loginErr');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const leadsBody = document.getElementById('leadsBody');
+  const emptyState = document.getElementById('emptyState');
+  const searchInp = document.getElementById('searchInp');
+  const filterStatus = document.getElementById('filterStatus');
+  const countInfo = document.getElementById('countInfo');
+
+  let allLeads = [];
+
+  function getToken() {
+    return sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || '';
+  }
+
+  function setToken(t) {
+    localStorage.setItem(TOKEN_KEY, t);
+  }
+
+  function clearToken() {
+    localStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
+  }
+
+  function formatWaNumber(raw) {
+    let cl = String(raw || '').replace(/[^0-9]/g, '');
+    if (cl.startsWith('0')) cl = '62' + cl.slice(1);
+    return cl;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '-';
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('id-ID', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    } catch (e) {
+      return iso;
+    }
+  }
+
+  function updateStats() {
+    document.getElementById('stTotal').textContent = allLeads.length;
+    document.getElementById('stBaru').textContent = allLeads.filter(x => (x.status || 'baru') === 'baru').length;
+    document.getElementById('stDihubungi').textContent = allLeads.filter(x => x.status === 'dihubungi').length;
+    document.getElementById('stSurvei').textContent = allLeads.filter(x => x.status === 'survei').length;
+  }
+
+  function renderTable() {
+    const q = searchInp.value.trim().toLowerCase();
+    const st = filterStatus.value;
+
+    const filtered = allLeads.filter(item => {
+      const itemStatus = item.status || 'baru';
+      if (st && itemStatus !== st) return false;
+      if (!q) return true;
+      return (
+        String(item.nama || '').toLowerCase().includes(q) ||
+        String(item.whatsapp || '').toLowerCase().includes(q) ||
+        String(item.pesan || '').toLowerCase().includes(q) ||
+        String(item.catatan_admin || '').toLowerCase().includes(q)
+      );
+    });
+
+    countInfo.textContent = `Menampilkan ${filtered.length} dari ${allLeads.length} data`;
+    leadsBody.innerHTML = '';
+
+    if (filtered.length === 0) {
+      emptyState.hidden = false;
+      return;
+    }
+    emptyState.hidden = true;
+
+    filtered.forEach(item => {
+      const tr = document.createElement('tr');
+      const waClean = formatWaNumber(item.whatsapp);
+      const waText = encodeURIComponent(`Halo Bapak/Ibu ${item.nama}, terima kasih telah menghubungi kami mengenai properti Jl. Cikini Raya No. 77.`);
+      const waHref = `https://wa.me/${waClean}?text=${waText}`;
+
+      // Column 1: Name & Time
+      const tdName = document.createElement('td');
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'lead-name';
+      nameDiv.textContent = item.nama;
+      const timeDiv = document.createElement('div');
+      timeDiv.className = 'lead-time';
+      timeDiv.textContent = formatDate(item.waktu_kirim);
+      tdName.append(nameDiv, timeDiv);
+
+      const utms = ['utm_source', 'utm_medium', 'utm_campaign'].filter(k => item[k]).map(k => `${k.replace('utm_','')}: ${item[k]}`);
+      if (utms.length) {
+        const utmWrap = document.createElement('div');
+        utmWrap.className = 'utm-tags';
+        utms.forEach(u => {
+          const s = document.createElement('span');
+          s.className = 'utm-tag';
+          s.textContent = u;
+          utmWrap.appendChild(s);
+        });
+        tdName.appendChild(utmWrap);
+      }
+
+      // Column 2: WhatsApp
+      const tdWa = document.createElement('td');
+      const waA = document.createElement('a');
+      waA.className = 'wa-link';
+      waA.href = waHref;
+      waA.target = '_blank';
+      waA.rel = 'noopener';
+      waA.textContent = `${item.whatsapp} ↗`;
+      tdWa.appendChild(waA);
+
+      // Column 3: Message
+      const tdMsg = document.createElement('td');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'lead-msg';
+      msgDiv.textContent = item.pesan || '';
+      tdMsg.appendChild(msgDiv);
+
+      // Column 4: Status
+      const tdStatus = document.createElement('td');
+      const sel = document.createElement('select');
+      sel.className = 'status-select';
+      const curStatus = item.status || 'baru';
+      sel.setAttribute('data-val', curStatus);
+      [
+        ['baru', 'Baru'],
+        ['dihubungi', 'Dihubungi'],
+        ['survei', 'Jadwal Survei'],
+        ['arsip', 'Arsip']
+      ].forEach(([val, label]) => {
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = label;
+        if (val === curStatus) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      tdStatus.appendChild(sel);
+
+      // Column 5: Admin notes
+      const tdNote = document.createElement('td');
+      const noteWrap = document.createElement('div');
+      noteWrap.className = 'note-box';
+      const ta = document.createElement('textarea');
+      ta.placeholder = 'Tulis catatan internal...';
+      ta.value = item.catatan_admin || '';
+      const saveInd = document.createElement('span');
+      saveInd.className = 'save-indicator';
+      noteWrap.append(ta, saveInd);
+      tdNote.appendChild(noteWrap);
+
+      async function saveRow() {
+        saveInd.textContent = 'Menyimpan...';
+        sel.setAttribute('data-val', sel.value);
+        try {
+          const r = await fetch(`/api/leads/${item.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + getToken()
+            },
+            body: JSON.stringify({
+              status: sel.value,
+              catatan_admin: ta.value
+            })
+          });
+          if (!r.ok) throw new Error();
+          item.status = sel.value;
+          item.catatan_admin = ta.value;
+          updateStats();
+          saveInd.textContent = '✓ Tersimpan';
+          setTimeout(() => { if (saveInd.textContent === '✓ Tersimpan') saveInd.textContent = ''; }, 2000);
+        } catch (e) {
+          saveInd.textContent = 'Gagal menyimpan';
+        }
+      }
+
+      sel.addEventListener('change', saveRow);
+      let noteTimer;
+      ta.addEventListener('input', () => {
+        clearTimeout(noteTimer);
+        saveInd.textContent = 'Mengetik...';
+        noteTimer = setTimeout(saveRow, 700);
+      });
+
+      // Column 6: Delete Action
+      const tdAct = document.createElement('td');
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'btn danger';
+      delBtn.style.minHeight = '32px';
+      delBtn.style.padding = '0 10px';
+      delBtn.style.fontSize = '12px';
+      delBtn.textContent = 'Hapus';
+      delBtn.addEventListener('click', async () => {
+        if (!confirm(`Hapus data dari "${item.nama}"?`)) return;
+        const r = await fetch(`/api/leads/${item.id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + getToken() }
+        });
+        if (r.ok) {
+          allLeads = allLeads.filter(x => x.id !== item.id);
+          updateStats();
+          renderTable();
+        }
+      });
+      tdAct.appendChild(delBtn);
+
+      tr.append(tdName, tdWa, tdMsg, tdStatus, tdNote, tdAct);
+      leadsBody.appendChild(tr);
+    });
+  }
+
+  async function loadLeads() {
+    const token = getToken();
+    if (!token) {
+      showLogin();
+      return;
+    }
+    try {
+      const r = await fetch('/api/leads', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (r.status === 401) {
+        clearToken();
+        showLogin();
+        return;
+      }
+      const data = await r.json();
+      allLeads = data.leads || [];
+      loginView.hidden = true;
+      dashView.hidden = false;
+      logoutBtn.hidden = false;
+      updateStats();
+      renderTable();
+    } catch (e) {
+      showLogin();
+    }
+  }
+
+  function showLogin() {
+    loginView.hidden = false;
+    dashView.hidden = true;
+    logoutBtn.hidden = true;
+  }
+
+  loginForm.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    loginErr.hidden = true;
+    const pw = document.getElementById('pw').value;
+    try {
+      const r = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      const data = await r.json();
+      if (!r.ok || !data.token) {
+        loginErr.textContent = data.error || 'Password salah.';
+        loginErr.hidden = false;
+        return;
+      }
+      setToken(data.token);
+      document.getElementById('pw').value = '';
+      loadLeads();
+    } catch (e) {
+      loginErr.textContent = 'Gagal menghubungi server.';
+      loginErr.hidden = false;
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    clearToken();
+    showLogin();
+  });
+
+  document.getElementById('refreshBtn').addEventListener('click', loadLeads);
+  searchInp.addEventListener('input', renderTable);
+  filterStatus.addEventListener('change', renderTable);
+
+  // CSV Export
+  document.getElementById('csvBtn').addEventListener('click', () => {
+    if (!allLeads.length) return alert('Belum ada data untuk diunduh.');
+    const headers = ['ID', 'Waktu Kirim', 'Nama', 'WhatsApp', 'Pesan', 'Status', 'Catatan Admin', 'UTM Source', 'UTM Medium', 'UTM Campaign'];
+    const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const rows = allLeads.map(x => [
+      x.id, x.waktu_kirim, x.nama, x.whatsapp, x.pesan, x.status, x.catatan_admin, x.utm_source, x.utm_medium, x.utm_campaign
+    ].map(esc).join(','));
+    const csv = '\uFEFF' + [headers.map(esc).join(','), ...rows].join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `leads-cikini-raya-77-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+  });
+
+  loadLeads();
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+{
+  "name": "cikini-raya-77",
+  "version": "1.0.0",
+  "description": "Landing page & lead management for Cikini Raya 77",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
+
