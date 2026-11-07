@@ -380,6 +380,7 @@ footer p+p{margin-top:8px}
 /* ===== Pengaturan ===== */
 // Endpoint penerima formulir. Mengarah ke backend /api/leads yang bisa dicek di halaman /admin.
 var FORM_ENDPOINT = "/api/leads";
+var WA_CONTACT = "6289675514124"; // 089675514124
 
 (function(){
   var form = document.getElementById('lead');
@@ -395,11 +396,21 @@ var FORM_ENDPOINT = "/api/leads";
     form.elements['halaman'].value = location.href.split('#')[0];
   }catch(e){}
 
-  function show(kind, title, text){
+  function show(kind, title, text, waUrl){
     out.className = 'msg' + (kind === 'err' ? ' err' : '');
     out.innerHTML = '<h3></h3><p></p>';
     out.firstChild.textContent = title;
     out.lastChild.textContent = text;
+    if(waUrl){
+      var a = document.createElement('a');
+      a.className = 'btn gold';
+      a.style.marginTop = '18px';
+      a.href = waUrl;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Hubungi via WhatsApp (0896-7551-4124) ↗';
+      out.appendChild(a);
+    }
     out.hidden = false;
     out.scrollIntoView({block:'nearest', behavior:'smooth'});
   }
@@ -418,9 +429,13 @@ var FORM_ENDPOINT = "/api/leads";
 
     function done(demo){
       form.querySelectorAll('input,select,textarea,button').forEach(function(el){ el.disabled = true; });
+      var waMsg = 'Halo, saya ' + (data.nama || '') + '. Saya baru saja mengisi formulir di website mengenai properti Jl. Cikini Raya No. 77.'
+        + (data.pesan ? '\n\nCatatan: ' + data.pesan : '');
+      var waUrl = 'https://wa.me/' + WA_CONTACT + '?text=' + encodeURIComponent(waMsg);
       show('ok', 'Terima kasih, ' + (data.nama || '').split(' ')[0] + '.',
         demo ? 'Ini pratinjau: formulir belum tersambung ke penerima data, jadi tidak ada yang terkirim.'
-             : 'Permintaan Anda sudah kami terima. Kami akan menghubungi Anda secepatnya.');
+             : 'Permintaan Anda sudah kami terima. Kami akan segera menghubungi Anda, atau Anda dapat langsung menghubungi kami melalui WhatsApp di bawah ini.',
+        waUrl);
       try{ if(window.fbq) fbq('track','Lead'); }catch(e){}
       try{ if(window.ttq) ttq.track('SubmitForm'); }catch(e){}
       try{ if(window.gtag) gtag('event','generate_lead'); }catch(e){}
